@@ -1,14 +1,9 @@
-# Use Tomcat 9 base image
-FROM tomcat:9.0-jre11 
+sudo yum install -y yum-utils device-mapper-persistent-data lvm2
 
-# Set application version
-ENV APP_VERSION 1.0
+sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
 
-# Copy JAR file to webapps
-COPY target/myapp-$APP_VERSION.jar /usr/local/tomcat/webapps/myapp.jar
+sudo yum install docker-ce
 
-# Expose port 8080 for Tomcat
-EXPOSE 8080 
+sudo service docker start
 
-# Run Tomcat
-CMD ["catalina.sh", "run"]
+sudo usermod -a -G docker ec2-user
