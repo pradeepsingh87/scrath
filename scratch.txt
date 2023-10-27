@@ -1,14 +1,14 @@
-# Use Java 11 base image
-FROM openjdk:11-jre
+# Use Tomcat 9 base image
+FROM tomcat:9.0-jre11 
 
-# Set application version 
+# Set application version
 ENV APP_VERSION 1.0
 
-# Copy the JAR file from the target folder
-COPY target/myapp-$APP_VERSION.jar /opt/myapp.jar
+# Copy JAR file to webapps
+COPY target/myapp-$APP_VERSION.jar /usr/local/tomcat/webapps/myapp.jar
 
 # Expose port 8080 for Tomcat
-EXPOSE 8080
+EXPOSE 8080 
 
-# Run the JAR
-ENTRYPOINT ["java", "-jar", "/opt/myapp.jar"]
+# Run Tomcat
+CMD ["catalina.sh", "run"]
